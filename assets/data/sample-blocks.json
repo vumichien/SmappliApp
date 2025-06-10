@@ -1,0 +1,116 @@
+{
+  "blocks": [
+    {
+      "type": "title",
+      "text": "Smappli Application",
+      "size": "large",
+      "color": "#fff",
+      "style": {
+        "backgroundColor": "#1a1f24",
+        "padding": 20,
+        "margin": 10,
+        "borderRadius": 10
+      }
+    },
+    {
+      "type": "text",
+      "content": "Welcome to Smappli - where you can explore and interact with diverse content through a flexible block system.",
+      "fontSize": 16,
+      "color": "#ccc",
+      "textAlign": "center",
+      "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 15,
+        "margin": 10,
+        "borderRadius": 10
+      }
+    },
+    {
+      "type": "image",
+      "source": "@/assets/images/background-image.png",
+      "borderRadius": 10,
+      "style": {
+        "padding": 0,
+        "margin": 10,
+        "borderRadius": 10
+      }
+    },
+    {
+      "type": "gallery",
+      "title": "Image Gallery",
+      "titleSize": "medium",
+      "titleColor": "#fff",
+      "columns": 3,
+      "images": [
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "circle"
+        },
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "square"
+        },
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "rounded"
+        },
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "circle"
+        },
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "square"
+        },
+        {
+          "source": "@/assets/images/background-image.png",
+          "size": "small",
+          "shape": "rounded"
+        }
+      ],
+      "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 0,
+        "margin": 10,
+        "borderRadius": 10
+      }
+    },
+    {
+      "type": "button",
+      "title": "Choose Action",
+      "titleSize": "medium",
+      "titleColor": "#fff",
+      "buttons": [
+        {
+          "label": "View Gallery",
+          "variant": "primary",
+          "action": "view_gallery",
+          "message": "Opening gallery..."
+        },
+        {
+          "label": "Perform Action",
+          "variant": "secondary",
+          "action": "perform_action",
+          "message": "Action performed successfully!"
+        },
+        {
+          "label": "Interact with Image",
+          "variant": "secondary",
+          "action": "interact_image",
+          "message": "Interacting with image..."
+        }
+      ],
+      "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 0,
+        "margin": 10,
+        "borderRadius": 10
+      }
+    }
+  ]
+} 

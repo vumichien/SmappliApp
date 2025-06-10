@@ -1,0 +1,111 @@
+{
+"blocks": [
+    {
+    "type": "title",
+    "text": "Ứng dụng Smappli",
+    "size": "large",
+    "color": "#fff",
+    "style": {
+        "backgroundColor": "#1a1f24",
+        "padding": 20,
+        "margin": 10,
+        "borderRadius": 15
+    }
+    },
+    {
+    "type": "text",
+    "content": "Chào mừng bạn đến với ứng dụng Smappli - nơi bạn có thể khám phá và tương tác với các nội dung đa dạng thông qua hệ thống block linh hoạt.",
+    "fontSize": 16,
+    "color": "#ccc",
+    "textAlign": "center",
+    "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 15,
+        "margin": 10,
+        "borderRadius": 10
+    }
+    },
+    {
+    "type": "image",
+    "source": "@/assets/images/background-image.png",
+    "width": 280,
+    "height": 350,
+    "borderRadius": 18,
+    "style": {
+        "padding": 15,
+        "margin": 10
+    }
+    },
+    {
+    "type": "gallery",
+    "title": "Bộ sưu tập ảnh",
+    "titleSize": "medium",
+    "titleColor": "#fff",
+    "columns": 3,
+    "images": [
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "circle"
+        },
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "square"
+        },
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "rounded"
+        },
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "circle"
+        },
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "square"
+        },
+        {
+        "source": "@/assets/images/background-image.png",
+        "size": "small",
+        "shape": "rounded"
+        }
+    ],
+    "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 20,
+        "margin": 15,
+        "borderRadius": 15
+    }
+    },
+    {
+    "type": "button",
+    "title": "Chọn hành động",
+    "titleSize": "medium",
+    "titleColor": "#fff",
+    "buttons": [
+        {
+        "label": "Xem bộ sưu tập",
+        "variant": "primary",
+        "action": "view_gallery",
+        "message": "Đang mở bộ sưu tập..."
+        },
+        {
+        "label": "Thực hiện hành động",
+        "variant": "secondary",
+        "action": "perform_action",
+        "message": "Hành động đã được thực hiện!"
+        }
+    ],
+    "style": {
+        "backgroundColor": "#2a2f35",
+        "padding": 20,
+        "margin": 15,
+        "borderRadius": 15
+    }
+    }
+]
+}

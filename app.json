@@ -1,22 +1,27 @@
 {
   "expo": {
-    "name": "ReactDemo",
-    "slug": "ReactDemo",
+    "name": "SmappliApp",
+    "slug": "SmappliApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "reactdemo",
+    "scheme": "SmappliApp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "SmappliApp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "SmappliApp"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +42,19 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "cli": {
+      "appVersionSource": "remote"
+    },
+    "packagerOpts": {
+      "port": 8082
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b5b27f24-91a4-4d84-a296-1190342f4302"
+      }
+    },
+    "owner": "vumichien"
   }
 }

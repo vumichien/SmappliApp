@@ -1,0 +1,57 @@
+# Cursor Rules for Smappli Web Builder Expo
+
+## Project Context
+This is a React Native Expo web builder project for creating mobile app layouts. 
+Working directory: smappli-web-builder-expo/
+
+## File Structure Rules
+- All code files should be created within smappli-web-builder-expo/ directory
+- Do NOT create files outside this directory
+- Do NOT modify mobile app files in parent directories
+- Focus only on web builder functionality
+
+## Technology Stack
+- React Native Expo (for web compatibility)
+- TypeScript
+- WebSocket for real-time communication
+- Expo Web for browser rendering
+
+## Component Structure
+- Use functional components with hooks
+- TypeScript interfaces for all props
+- Consistent naming conventions (PascalCase for components)
+- Export components as default
+
+## File Organization
+- types/ - TypeScript interfaces and types
+- components/ - React Native components
+- services/ - WebSocket and API services  
+- contexts/ - React context providers
+- data/ - Static data and templates
+
+## Code Style
+- Use TypeScript strict mode
+- Prefer const over let
+- Use arrow functions for components
+- Add proper error handling
+- Include JSDoc comments for complex functions
+
+## WebSocket Integration
+- Connect to ws://localhost:8081/ws
+- Handle connection states properly
+- Implement reconnection logic
+- Send/receive block data in correct format
+
+## Block Data Format
+Follow the mobile app block structure:
+- Block types: title, text, image, button, gallery
+- Each block has: id, type, content, style properties
+- Button blocks have title and buttons array
+- Gallery blocks support different image shapes
+
+## Development Focus
+- Web-based drag & drop interface
+- Real-time preview
+- Component property editing
+- WebSocket communication with mobile app
+- Responsive design for web browsers 
