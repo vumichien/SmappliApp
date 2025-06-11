@@ -1,6 +1,7 @@
 import { BlockData } from '@/components/blocks/BlockRenderer';
 import { ApiResponse, apiService, BlockConfig } from '@/services/ApiService';
 import { BlockImportService } from '@/services/BlockImportService';
+import { ImageService } from '@/services/ImageService';
 import { StateService } from '@/services/StateService';
 import { webSocketService } from '@/services/WebSocketService';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
@@ -58,14 +59,74 @@ export function BlockProvider({ children }: BlockProviderProps) {
         try {
           setLoading(true);
           console.log('🔄 BlockContext: Processing blocks:', data.blocks);
-          const validatedBlocks = BlockImportService.validateAndProcessBlocks(data.blocks);
-          setBlocks(validatedBlocks);
+          
+          // Process images if included
+          if (data.images && Object.keys(data.images).length > 0) {
+            console.log('📷 BlockContext: Processing', Object.keys(data.images).length, 'images');
+            
+            // Save images to local storage
+            for (const [imageId, base64] of Object.entries(data.images)) {
+              try {
+                await ImageService.saveImage(base64 as string, `${imageId}.jpg`);
+                console.log('💾 Saved image:', imageId);
+              } catch (error) {
+                console.error('❌ Failed to save image:', imageId, error);
+              }
+            }
+            
+            // Update image blocks to use local image references
+            const processedBlocks = data.blocks.map((block: any) => {
+              if (block.type === 'image' && block.source.startsWith('data:')) {
+                // Extract base64 and find corresponding imageId
+                const base64 = block.source.split(',')[1];
+                const imageId = block.imageId || Object.keys(data.images).find(id => data.images[id] === base64);
+                
+                if (imageId) {
+                  return {
+                    ...block,
+                    source: `local://${imageId}`,
+                    imageId: imageId
+                  };
+                }
+              } else if (block.type === 'gallery' && block.images) {
+                // Process gallery images
+                const processedImages = block.images.map((image: any) => {
+                  if (image.source.startsWith('data:')) {
+                    const base64 = image.source.split(',')[1];
+                    const imageId = image.imageId || Object.keys(data.images).find(id => data.images[id] === base64);
+                    
+                    if (imageId) {
+                      return {
+                        ...image,
+                        source: `local://${imageId}`,
+                        imageId: imageId
+                      };
+                    }
+                  }
+                  return image;
+                });
+                
+                return {
+                  ...block,
+                  images: processedImages
+                };
+              }
+              return block;
+            });
+            
+            const validatedBlocks = BlockImportService.validateAndProcessBlocks(processedBlocks);
+            setBlocks(validatedBlocks);
+          } else {
+            // No images, process blocks normally
+            const validatedBlocks = BlockImportService.validateAndProcessBlocks(data.blocks);
+            setBlocks(validatedBlocks);
+          }
           
           // Show notification to user
           if (typeof window !== 'undefined' && 'Notification' in window) {
             if (Notification.permission === 'granted') {
               new Notification('SmappliApp Updated', {
-                body: 'New configuration received from web app',
+                body: `New configuration received from web app${data.images ? ` with ${Object.keys(data.images).length} images` : ''}`,
                 icon: '/icon.png'
               });
             }

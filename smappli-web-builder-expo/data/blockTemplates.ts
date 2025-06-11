@@ -54,7 +54,7 @@ export const blockTemplates: BlockTemplate[] = [
     category: 'media',
     block: {
       type: 'image',
-      source: 'https://picsum.photos/200/300',
+      source: '',
       borderRadius: 10,
       style: {
         padding: 0,

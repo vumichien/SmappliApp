@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useBuilder } from '../contexts/BuilderContext';
 import { Block, ButtonBlock, GalleryBlock, ImageBlock, TextBlock, TitleBlock } from '../types/blocks';
+import ImageUploader from './ImageUploader';
 
 /**
  * Right sidebar component focused on block properties
@@ -12,6 +13,15 @@ const RightSidebar: React.FC = () => {
   const [isConnectionExpanded, setIsConnectionExpanded] = useState(false);
 
   const selectedBlock = state.blocks.find(block => block.id === state.selectedBlockId);
+  
+  // Debug logging for selectedBlock
+  useEffect(() => {
+    console.log('🎯 RightSidebar: selectedBlock changed:', {
+      id: selectedBlock?.id,
+      type: selectedBlock?.type,
+      source: selectedBlock?.type === 'image' ? (selectedBlock.source ? selectedBlock.source.substring(0, 50) + '...' : 'empty') : 'N/A'
+    });
+  }, [selectedBlock]);
 
   const handleConnect = async () => {
     try {
@@ -49,7 +59,12 @@ const RightSidebar: React.FC = () => {
   const updateBlockProperty = (property: string, value: any) => {
     if (!selectedBlock) return;
     
+    console.log(`🔧 Updating block property: ${property} =`, typeof value === 'string' && value.length > 50 ? value.substring(0, 50) + '...' : value);
+    console.log(`📋 Current block before update:`, selectedBlock);
+    
     const updatedBlock = { ...selectedBlock, [property]: value };
+    console.log(`📋 Updated block after property change:`, updatedBlock);
+    
     updateBlock(updatedBlock);
   };
 
@@ -365,13 +380,32 @@ const renderBlockProperties = (block: Block, updateProperty: (property: string, 
       return (
         <>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Image URL:</Text>
-            <TextInput
-              style={styles.input}
-              value={imageBlock.source}
-              onChangeText={(value) => updateProperty('source', value)}
-              placeholder="https://example.com/image.jpg"
-              placeholderTextColor="#999"
+            <Text style={styles.label}>Image:</Text>
+            <ImageUploader
+              currentImageUrl={imageBlock.source}
+              onImageUploaded={(imageData) => {
+                console.log('🖼️ Image uploaded in RightSidebar:', imageData.id);
+                console.log('📷 Image data:', {
+                  id: imageData.id,
+                  filename: imageData.filename,
+                  base64Length: imageData.base64.length
+                });
+                
+                // Create data URL for immediate preview and replace current image
+                const dataUrl = `data:image/jpeg;base64,${imageData.base64}`;
+                console.log('📷 Setting image source to data URL (length:', dataUrl.length, ')');
+                console.log('📋 Current block before update:', {
+                  id: imageBlock.id,
+                  type: imageBlock.type,
+                  currentSource: imageBlock.source ? imageBlock.source.substring(0, 50) + '...' : 'empty'
+                });
+                
+                // Update both source and imageId properties
+                updateProperty('source', dataUrl);
+                updateProperty('imageId', imageData.id);
+                
+                console.log('✅ Image properties updated - triggering re-render');
+              }}
             />
           </View>
 

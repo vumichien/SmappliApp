@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SmappliApp",
-    "slug": "SmappliApp",
+    "name": "Smappli Mobile",
+    "slug": "Smappli Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

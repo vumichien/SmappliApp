@@ -149,6 +149,22 @@ export class WebSocketService {
   }
 
   /**
+   * Send blocks update with images to mobile app
+   */
+  sendBlocksUpdateWithImages(blocks: Block[], images: { [key: string]: string }): void {
+    this.send({
+      type: 'BUILD_REQUEST',
+      data: {
+        blocks,
+        images,
+        version: '1.0.0',
+        timestamp: new Date().toISOString(),
+        source: 'web-builder-expo'
+      }
+    });
+  }
+
+  /**
    * Send single block addition
    */
   sendBlockAdd(block: Block): void {

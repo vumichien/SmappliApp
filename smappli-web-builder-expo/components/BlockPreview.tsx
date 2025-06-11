@@ -80,7 +80,7 @@ const TitlePreview: React.FC<{ block: TitleBlock }> = ({ block }) => {
         }
       ]}
     >
-      {block.text}
+      {block.text || 'Title'}
     </Text>
   );
 };
@@ -96,25 +96,68 @@ const TextPreview: React.FC<{ block: TextBlock }> = ({ block }) => (
       }
     ]}
   >
-    {block.content}
+    {block.content || 'Text content'}
   </Text>
 );
 
 const ImagePreview: React.FC<{ block: ImageBlock }> = ({ block }) => {
+  const sourcePreview = block.source ? block.source.substring(0, 50) + '...' : 'undefined';
+  console.log('🔍 ImagePreview rendering with source:', sourcePreview);
+  
+  // Check if we have a real image or just placeholder
+  // Handle all possible empty/placeholder cases
+  const hasRealImage = block.source && 
+    block.source.trim() !== '' &&
+    block.source !== 'empty' &&
+    !block.source.startsWith('@/') && 
+    block.source !== 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop';
+
+  console.log('🖼️ hasRealImage:', hasRealImage, 'source:', block.source, 'source length:', block.source?.length || 0);
+
+  if (!hasRealImage) {
+    console.log('📱 Showing placeholder for image block');
+    // Show placeholder icon when no image is uploaded
+    return (
+      <View style={[styles.imagePlaceholder, { borderRadius: block.borderRadius || 8 }]}>
+        <Text style={styles.placeholderIcon}>🖼️</Text>
+        <Text style={styles.placeholderText}>No Image</Text>
+      </View>
+    );
+  }
+
+  // Handle different image source types for real images
+  const getImageSource = () => {
+    if (block.source && block.source.startsWith('data:')) {
+      console.log('📷 Using base64 data URL for image');
+      // Base64 data URL from uploaded image
+      return { uri: block.source };
+    } else if (block.source) {
+      console.log('🌐 Using external URL for image');
+      // External URL
+      return { uri: block.source };
+    } else {
+      // Fallback - should not reach here due to hasRealImage check
+      return { uri: 'https://via.placeholder.com/300x200?text=No+Image' };
+    }
+  };
+
+  console.log('✅ Rendering actual image');
   return (
     <Image
-      source={{ 
-        uri: block.source.startsWith('@/') 
-          ? 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop' 
-          : block.source 
-      }}
+      source={getImageSource()}
       style={[
         styles.image,
         { 
-          borderRadius: block.borderRadius || 12,
+          borderRadius: block.borderRadius || 8,
         }
       ]}
       resizeMode="cover"
+      onError={(error) => {
+        console.warn('❌ Image load error:', error);
+      }}
+      onLoad={() => {
+        console.log('✅ Image loaded successfully');
+      }}
     />
   );
 };
@@ -174,7 +217,7 @@ const ButtonPreview: React.FC<{ block: ButtonBlock }> = ({ block }) => {
             }
           ]}
         >
-          {block.title}
+          {block.title || 'Button Section'}
         </Text>
       )}
       <View style={styles.buttonList}>
@@ -199,7 +242,7 @@ const ButtonPreview: React.FC<{ block: ButtonBlock }> = ({ block }) => {
                   { color: buttonStyle.textColor }
                 ]}
               >
-                {button.label}
+                {button.label || 'Button'}
               </Text>
             </TouchableOpacity>
           );
@@ -240,7 +283,6 @@ const GalleryPreview: React.FC<{ block: GalleryBlock }> = ({ block }) => {
               />
             </View>
           ))}
-          {/* Fill empty slots in row */}
           {rowImages.length < 3 && Array.from({ length: 3 - rowImages.length }).map((_, emptyIndex) => (
             <View key={`empty-${emptyIndex}`} style={styles.galleryImageWrapper}>
               <View style={[styles.galleryImage, styles.emptyGalleryImage]} />
@@ -266,7 +308,7 @@ const GalleryPreview: React.FC<{ block: GalleryBlock }> = ({ block }) => {
             }
           ]}
         >
-          {block.title}
+          {block.title || 'Gallery'}
         </Text>
       )}
       <View style={styles.galleryGrid}>
@@ -281,7 +323,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 8,
     padding: 0,
-    marginVertical: 6,
+    marginVertical: 4,
     borderWidth: 2,
     borderColor: 'transparent',
   },
@@ -292,48 +334,45 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#FFFFFF',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    color: '#FFFFFF'
   },
   text: {
-    lineHeight: 18, // Scaled down from 22 for responsive design
-    color: '#B0B0B0',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    lineHeight: 16,
+    color: '#B0B0B0'
   },
   image: {
     width: '100%',
-    height: 200,
-    borderRadius: 12,
+    height: 120,
+    borderRadius: 8,
   },
   buttonContainer: {
     paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
   buttonTitle: {
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#FFFFFF',
+    fontSize: 16,
   },
   buttonList: {
     width: '100%',
   },
   button: {
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius:10,
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
   },
   buttonText: {
-    fontSize: 12, // Scaled down from 16 for iPhone XR responsive design
+    fontSize: 11,
     fontWeight: '600',
   },
   galleryContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
   galleryTitle: {
     fontWeight: 'bold',
@@ -346,16 +385,16 @@ const styles = StyleSheet.create({
   galleryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   galleryImageWrapper: {
     flex: 1,
-    marginHorizontal: 4,
+    marginHorizontal: 3,
   },
   galleryImage: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: 8,
+    borderRadius: 6,
     backgroundColor: '#1a1f24',
   },
   emptyGalleryImage: {
@@ -367,6 +406,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
     padding: 15,
+  },
+  imagePlaceholder: {
+    width: '100%',
+    height: 120,
+    backgroundColor: '#1a1f24',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  placeholderIcon: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
+  placeholderText: {
+    fontSize: 10,
+    color: '#666666',
+    fontWeight: '500',
   },
 });
 

@@ -6,6 +6,7 @@ export interface GalleryItem {
   source: string;
   size?: 'small' | 'medium' | 'large';
   shape?: 'square' | 'circle' | 'rounded';
+  imageId?: string; // ID for locally stored images
 }
 
 export interface GalleryBlockData {
@@ -53,14 +54,11 @@ export default function GalleryBlock({ data }: Props) {
       {rows.map((row, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
           {row.map((item, itemIndex) => {
-            const imageSource = item.source.startsWith('@/') 
-              ? require(`../../assets/images/background-image.png`) // fallback
-              : { uri: item.source };
-              
             return (
               <AppImage
                 key={itemIndex}
-                source={imageSource}
+                source={item.source}
+                imageId={item.imageId}
                 size={item.size || 'small'}
                 shape={item.shape || 'rounded'}
               />

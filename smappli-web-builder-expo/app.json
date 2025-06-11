@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "smappli-web-builder-expo",
-    "slug": "smappli-web-builder-expo",
+    "name": "Smappli Web",
+    "slug": "Smappli Web",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +24,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you upload images to your app design.",
+          "cameraPermission": "The app accesses your camera to let you take photos for your app design.",
+          "microphonePermission": "The app accesses your microphone for video recording (if needed)."
+        }
+      ]
+    ]
   }
 }

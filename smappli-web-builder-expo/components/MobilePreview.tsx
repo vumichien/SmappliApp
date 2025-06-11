@@ -1,3 +1,4 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useBuilder } from '../contexts/BuilderContext';
@@ -77,15 +78,15 @@ const MobilePreview: React.FC = () => {
         {/* Bottom Navigation Bar */}
         <View style={styles.bottomNav}>
           <View style={styles.navItem}>
-            <Text style={styles.navIcon}>🏠</Text>
+            <Ionicons name="home-sharp" color="#FFFFFF" size={14} />
             <Text style={styles.navLabel}>Home</Text>
           </View>
           <View style={styles.navItem}>
-            <Text style={styles.navIcon}>🔧</Text>
+            <Ionicons name="construct" color="#FFFFFF" size={14} />
             <Text style={styles.navLabel}>Build</Text>
           </View>
           <View style={styles.navItem}>
-            <Text style={styles.navIcon}>ℹ️</Text>
+            <Ionicons name="information-circle" color="#FFFFFF" size={14} />
             <Text style={styles.navLabel}>About</Text>
           </View>
         </View>
@@ -102,42 +103,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F8F9FA',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
     color: '#333333',
   },
   phoneFrame: {
-    width: 320,
-    height: 640,
+    width: 280,
+    height: 580,
     backgroundColor: '#000000',
-    borderRadius: 32,
-    padding: 6,
+    borderRadius: 28,
+    padding: 4,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 6,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
-    elevation: 8,
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 6,
   },
   statusBar: {
-    height: 36,
+    height: 28,
     backgroundColor: '#25292e',
-    borderTopLeftRadius: 26,
-    borderTopRightRadius: 26,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 8,
+    paddingHorizontal: 12,
+    paddingTop: 6,
   },
   statusText: {
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '600',
     color: '#FFFFFF',
   },
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   appHeader: {
-    height: 50,
+    height: 40,
     backgroundColor: '#25292e',
     justifyContent: 'center',
     alignItems: 'center',
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#1a1f24',
   },
   appTitle: {
-    fontSize: 12, // Scaled down from 16 for responsive design
+    fontSize: 10,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
@@ -172,92 +173,92 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 12,
   },
   emptyIcon: {
-    fontSize: 36,
-    marginBottom: 12,
+    fontSize: 28,
+    marginBottom: 8,
   },
   emptyTitle: {
-    fontSize: 16, // Scaled down from 20 for responsive design
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 6,
+    marginBottom: 4,
     textAlign: 'center',
   },
   emptyDescription: {
-    fontSize: 11, // Scaled down from 14 for responsive design
+    fontSize: 9,
     color: '#B0B0B0',
     textAlign: 'center',
-    lineHeight: 16, // Scaled down from 20 for responsive design
-    paddingHorizontal: 15,
-    marginBottom: 20,
+    lineHeight: 12,
+    paddingHorizontal: 10,
+    marginBottom: 15,
   },
   emptyImagePlaceholder: {
-    width: 220,
-    height: 120,
+    width: 180,
+    height: 100,
     backgroundColor: '#1a1f24',
-    borderRadius: 10,
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 12,
   },
   emptyImageText: {
-    fontSize: 48,
+    fontSize: 36,
   },
   emptySubtitle: {
-    fontSize: 12, // Scaled down from 16 for responsive design
+    fontSize: 10,
     fontWeight: '600',
     color: '#FFFFFF',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   emptyGallery: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 6,
+    gap: 4,
   },
   emptyGalleryItem: {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 45,
     backgroundColor: '#1a1f24',
-    borderRadius: 6,
+    borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
   },
   emptyGalleryIcon: {
-    fontSize: 24,
+    fontSize: 18,
   },
   bottomNav: {
-    height: 50,
+    height: 42,
     backgroundColor: '#1a1f24',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: '#333333',
+    paddingHorizontal: 8,
   },
   navItem: {
     alignItems: 'center',
     flex: 1,
-  },
-  navIcon: {
-    fontSize: 18,
-    marginBottom: 3,
+    paddingVertical: 4,
   },
   navLabel: {
-    fontSize: 7, // Scaled down from 9 for responsive design
+    fontSize: 6,
     color: '#FFFFFF',
     fontWeight: '500',
+    marginTop: 2,
   },
   homeIndicator: {
-    width: 120,
-    height: 4,
+    width: 100,
+    height: 3,
     backgroundColor: '#FFFFFF',
-    borderRadius: 2,
+    borderRadius: 1.5,
     alignSelf: 'center',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 6,
+    marginBottom: 6,
   },
 });
 
