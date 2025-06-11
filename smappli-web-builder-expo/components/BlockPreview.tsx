@@ -8,9 +8,20 @@ interface BlockPreviewProps {
   onPress?: () => void;
 }
 
+// Responsive font scaling for mobile preview
+// iPhone XR: 414x896 points, our preview: 320x640
+// Scale factor to match responsive design
+const PREVIEW_WIDTH = 320;
+const IPHONE_XR_WIDTH = 414;
+const SCALE_FACTOR = PREVIEW_WIDTH / IPHONE_XR_WIDTH; // ≈ 0.77
+
+const scaleFont = (fontSize: number): number => {
+  return Math.round(fontSize * SCALE_FACTOR);
+};
+
 /**
  * Component to preview different block types
- * Renders blocks matching exactly the mobile app format
+ * Renders blocks matching exactly the mobile app format with responsive font scaling
  */
 const BlockPreview: React.FC<BlockPreviewProps> = ({ block, isSelected, onPress }) => {
   const renderBlock = () => {
@@ -52,9 +63,9 @@ const BlockPreview: React.FC<BlockPreviewProps> = ({ block, isSelected, onPress 
 const TitlePreview: React.FC<{ block: TitleBlock }> = ({ block }) => {
   const getFontSize = (size?: string) => {
     switch (size) {
-      case 'small': return 18;
-      case 'large': return 32;
-      default: return 24; // medium
+      case 'small': return 14; // Scaled down from 18 for responsive design
+      case 'large': return 25; // Scaled down from 32 for responsive design
+      default: return 18; // medium - Scaled down from 24 for responsive design
     }
   };
 
@@ -63,7 +74,7 @@ const TitlePreview: React.FC<{ block: TitleBlock }> = ({ block }) => {
       style={[
         styles.title,
         {
-          fontSize: getFontSize(block.size),
+          fontSize: scaleFont(getFontSize(block.size)),
           color: block.color || '#FFFFFF',
           textAlign: block.style?.textAlign || 'center',
         }
@@ -79,7 +90,7 @@ const TextPreview: React.FC<{ block: TextBlock }> = ({ block }) => (
     style={[
       styles.text,
       {
-        fontSize: block.fontSize || 16,
+        fontSize: scaleFont(block.fontSize || 12), // Default scaled down from 16 for responsive design
         color: block.color || '#B0B0B0',
         textAlign: block.textAlign || 'left',
       }
@@ -111,9 +122,9 @@ const ImagePreview: React.FC<{ block: ImageBlock }> = ({ block }) => {
 const ButtonPreview: React.FC<{ block: ButtonBlock }> = ({ block }) => {
   const getTitleFontSize = (size?: string) => {
     switch (size) {
-      case 'small': return 16;
-      case 'large': return 24;
-      default: return 20; // medium
+      case 'small': return 12; // Scaled down from 16 for responsive design
+      case 'large': return 18; // Scaled down from 24 for responsive design
+      default: return 15; // medium - Scaled down from 20 for responsive design
     }
   };
 
@@ -157,7 +168,7 @@ const ButtonPreview: React.FC<{ block: ButtonBlock }> = ({ block }) => {
           style={[
             styles.buttonTitle,
             {
-              fontSize: getTitleFontSize(block.titleSize),
+              fontSize: scaleFont(getTitleFontSize(block.titleSize)),
               color: block.titleColor || '#FFFFFF',
               marginBottom: 16,
             }
@@ -201,9 +212,9 @@ const ButtonPreview: React.FC<{ block: ButtonBlock }> = ({ block }) => {
 const GalleryPreview: React.FC<{ block: GalleryBlock }> = ({ block }) => {
   const getTitleFontSize = (size?: string) => {
     switch (size) {
-      case 'small': return 16;
-      case 'large': return 24;
-      default: return 20; // medium
+      case 'small': return 12; // Scaled down from 16 for responsive design
+      case 'large': return 18; // Scaled down from 24 for responsive design
+      default: return 15; // medium - Scaled down from 20 for responsive design
     }
   };
 
@@ -249,7 +260,7 @@ const GalleryPreview: React.FC<{ block: GalleryBlock }> = ({ block }) => {
           style={[
             styles.galleryTitle,
             {
-              fontSize: getTitleFontSize(block.titleSize),
+              fontSize: scaleFont(getTitleFontSize(block.titleSize)),
               color: block.titleColor || '#FFFFFF',
               marginBottom: 16,
             }
@@ -286,7 +297,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   text: {
-    lineHeight: 22,
+    lineHeight: 18, // Scaled down from 22 for responsive design
     color: '#B0B0B0',
     paddingHorizontal: 15,
     paddingVertical: 8,
@@ -317,7 +328,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 12, // Scaled down from 16 for iPhone XR responsive design
     fontWeight: '600',
   },
   galleryContainer: {

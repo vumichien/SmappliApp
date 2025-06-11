@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#1a1f24',
   },
   appTitle: {
-    fontSize: 16,
+    fontSize: 12, // Scaled down from 16 for responsive design
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
@@ -179,17 +179,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   emptyTitle: {
-    fontSize: 20,
+    fontSize: 16, // Scaled down from 20 for responsive design
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 6,
     textAlign: 'center',
   },
   emptyDescription: {
-    fontSize: 14,
+    fontSize: 11, // Scaled down from 14 for responsive design
     color: '#B0B0B0',
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 16, // Scaled down from 20 for responsive design
     paddingHorizontal: 15,
     marginBottom: 20,
   },
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
   },
   emptySubtitle: {
-    fontSize: 16,
+    fontSize: 12, // Scaled down from 16 for responsive design
     fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 12,
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   navLabel: {
-    fontSize: 9,
+    fontSize: 7, // Scaled down from 9 for responsive design
     color: '#FFFFFF',
     fontWeight: '500',
   },
